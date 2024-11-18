@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Sign Up - Customer Orders Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1>Sign Up</h1>
+        <p>Create your Customer Orders Tracker account</p>
+    </header>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- Signup Form -->
+        <section id="content" class="main">
+            <form id="signupForm">
+                <div class="row gtr-uniform">
+                    <div class="col-6 col-12-xsmall">
+                        <input type="text" name="first-name" id="first-name" value="" placeholder="First Name" required />
+                    </div>
+                    <div class="col-6 col-12-xsmall">
+                        <input type="text" name="last-name" id="last-name" value="" placeholder="Last Name" required />
+                    </div>
+                    <div class="col-12">
+                        <input type="email" name="email" id="email" value="" placeholder="Email" required />
+                    </div>
+                    <div class="col-12">
+                        <input type="password" name="password" id="password" value="" placeholder="Password" required />
+                    </div>
+                    <div class="col-12">
+                        <input type="tel" name="phone" id="phone" value="" placeholder="Phone Number" required />
+                    </div>
+                    <div class="col-12">
+                        <ul class="actions">
+                            <li><input type="submit" value="Sign Up" class="primary" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+            <p>Already have an account? <a href="login.html">Login here</a>.</p>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <section>
+            <h2>Get in Touch</h2>
+            <p>If you have any questions or need support, feel free to contact us.</p>
+            <ul class="actions">
+                <li><a href="feedback.html" class="button">Contact Us</a></li>
+            </ul>
+        </section>
+    </footer>
+
+</div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
+
+<script type="module">
+    // Import necessary Firebase functions
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, RecaptchaVerifier, PhoneAuthProvider } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCzNnoI00q2Lu66FZisLhjSTcdHu9e1G2c",
+        authDomain: "forestvieworder.firebaseapp.com",
+        projectId: "forestvieworder",
+        storageBucket: "forestvieworder.firebasestorage.app",
+        messagingSenderId: "730416852804",
+        appId: "1:730416852804:web:e8f24a1fe50acb46cf3111",
+        measurementId: "G-DF7R97DC0N"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const database = getDatabase(app);
+
+    // Setup ReCAPTCHA
+    const setupRecaptcha = () => {
+        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+            'size': 'invisible',
+            'callback': (response) => {
+                console.log('ReCAPTCHA resolved.');
+            }
+        }, auth);
+    };
+
+    // Add signup form submit listener
+    document.getElementById('signupForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const firstName = document.getElementById('first-name').value;
+        const lastName = document.getElementById('last-name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const phone = document.getElementById('phone').value;
+
+        try {
+            // Create user with email and password
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Store additional user info in the database
+            await set(ref(database, 'users/' + user.uid), {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                phone: phone
+            });
+
+            // Temporarily skip 2FA setup for testing redirection
+            alert('Account created successfully!');
+            window.location.href = 'download.html'; // Redirect to the download page
+
+        } catch (error) {
+            console.error("Error during sign up:", error);
+            alert('Error: ' + error.message);
+        }
+    });
+</script>
+
+<!-- Hidden container for reCAPTCHA -->
+<div id="recaptcha-container"></div>
+
+</body>
+</html>

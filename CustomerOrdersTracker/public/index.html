@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<!--
+  Customized Stellar by HTML5 UP for Customer Orders Tracker
+-->
+<html>
+<head>
+    <title>Customer Orders Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header" class="alt">
+        <span class="logo"><img src="images/GMlogo.png" alt="Customer Orders Tracker Logo" /></span>
+        <h1>Customer Orders Tracker</h1>
+        <p>Streamlining order management for GM's parts distribution.</p>
+    </header>
+
+    <!-- Nav -->
+    <nav id="nav">
+        <ul id="nav-links">
+            <li><a href="#intro" class="active">Introduction</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#cta">Get Started</a></li>
+            <li><a href="#summary">Feedback</a></li>
+            <li id="auth-link"><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- Introduction -->
+        <section id="intro" class="main">
+            <div class="spotlight">
+                <div class="content">
+                    <header class="major">
+                        <h2>Manage and Track Orders Easily</h2>
+                    </header>
+                    <p>Our platform provides an accessible, secure, and user-friendly way to manage customer orders, specifically designed for GM's parts distribution. Save time, reduce errors, and improve overall efficiency with our streamlined solution.</p>
+                    <ul class="actions">
+                        <li><a href="generic.html" class="button">Learn More</a></li>
+                    </ul>
+                </div>
+                <span class="image"><img src="images/order-tracker.png" alt="Order Management Screenshot" /></span>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="main special">
+            <header class="major">
+                <h2>Key Features</h2>
+            </header>
+            <ul class="features">
+                <li>
+                    <span class="icon solid major style1 fa-chart-line"></span>
+                    <h3>Order Tracking</h3>
+                    <p>Easily keep track of all customer orders and their current status in real-time.</p>
+                </li>
+                <li>
+                    <span class="icon major style3 fa-user-shield"></span>
+                    <h3>Secure Access</h3>
+                    <p>All data is securely stored and access is restricted to authorized users.</p>
+                </li>
+                <li>
+                    <span class="icon major style5 fa-tools"></span>
+                    <h3>Customizable Reports</h3>
+                    <p>Generate customized reports to help analyze performance and predict trends.</p>
+                </li>
+            </ul>
+            <footer class="major">
+                <ul class="actions special">
+                    <li><a href="generic.html" class="button">Learn More</a></li>
+                </ul>
+            </footer>
+        </section>
+
+        <!-- Get Started -->
+        <section id="cta" class="main special">
+            <header class="major">
+                <h2>Get Started Today</h2>
+                <p>Experience seamless order management for your parts distribution needs.</p>
+            </header>
+            <footer class="major">
+                <ul class="actions special">
+                    <li><a href="login.html" class="button primary">Get Started</a></li>
+                    <li><a href="generic.html" class="button">Learn More</a></li>
+                </ul>
+            </footer>
+        </section>
+
+        <!-- Summary Section -->
+        <section id="summary" class="main special">
+            <header class="major">
+                <h2>Have an Issue?</h2>
+                <p>Leave your feedback here</p>
+            </header>
+            <footer class="major">
+                <ul class="actions special">
+                    <li><a href="feedback.html" class="button">Feedback</a></li>
+                </ul>
+            </footer>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <section>
+            <h2>Get in Touch</h2>
+            <p>If you have any questions or need support, feel free to contact us.</p>
+            <p>Email: notarealemail@gmail.com<br>Number: (000)000-0000</p>
+        </section>
+        <section>
+            <h2>Follow Us</h2>
+            <ul class="icons">
+                <li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
+                <li><a href="#" class="icon brands fa-facebook-f alt"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon brands fa-instagram alt"><span class="label">Instagram</span></a></li>
+            </ul>
+        </section>
+        <p class="copyright">&copy; Customer Orders Tracker. Design inspired by <a href="https://html5up.net">HTML5 UP</a>.</p>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"></script>
+
+<script>
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCzNnoI00q2Lu66FZisLhjSTcdHu9e1G2c",
+        authDomain: "forestvieworder.firebaseapp.com",
+        projectId: "forestvieworder",
+        storageBucket: "forestvieworder.firebasestorage.app",
+        messagingSenderId: "730416852804",
+        appId: "1:730416852804:web:e8f24a1fe50acb46cf3111",
+        measurementId: "G-DF7R97DC0N"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Logout function
+    function logout() {
+        auth.signOut().then(() => {
+            window.location.href = 'index.html';
+        }).catch((error) => {
+            console.error("Error during logout:", error);
+            alert('Error: ' + error.message);
+        });
+    }
+
+    // Use Firebase auth state to show login/logout button
+    document.addEventListener("DOMContentLoaded", function() {
+        auth.onAuthStateChanged((user) => {
+            const authLink = document.getElementById('auth-link');
+            if (user) {
+                // If user is logged in
+                console.log("User is logged in: ", user.email); // Debug log
+                authLink.innerHTML = '<a href="#" onclick="logout()">Logout</a>';
+            } else {
+                // If no user is logged in
+                console.log("No user is logged in"); // Debug log
+                authLink.innerHTML = '<a href="login.html">Login</a>';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
