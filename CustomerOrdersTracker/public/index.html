@@ -1,7 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-  Customized Stellar by HTML5 UP for Customer Orders Tracker
--->
 <html>
 <head>
     <title>Customer Orders Tracker</title>
@@ -69,9 +66,9 @@
                     <p>All data is securely stored and access is restricted to authorized users.</p>
                 </li>
                 <li>
-                    <span class="image"><img src="images/project.png" alt="Customizable Reports" /></span>
-                    <h3>Customizable Reports</h3>
-                    <p>Generate customized reports to help analyze performance and predict trends.</p>
+                    <span class="image"><img src="images/project.png" alt="Accurate Tracking" /></span>
+                    <h3>Accurate Tracking</h3>
+                    <p>Ensure precise and error-free tracking of orders and status updates.</p>
                 </li>
             </ul>
             <footer class="major">
@@ -160,6 +157,7 @@
     // Logout function
     function logout() {
         auth.signOut().then(() => {
+            localStorage.removeItem("user");
             window.location.href = 'index.html';
         }).catch((error) => {
             console.error("Error during logout:", error);
@@ -167,17 +165,16 @@
         });
     }
 
-    // Use Firebase auth state to show login/logout button
+    // Show login or logout button based on auth state
     document.addEventListener("DOMContentLoaded", function() {
         auth.onAuthStateChanged((user) => {
             const authLink = document.getElementById('auth-link');
             if (user) {
-                // If user is logged in
-                console.log("User is logged in: ", user.email); // Debug log
+                // User is logged in, show logout button
+                document.getElementById('logout').style.display = 'block';
                 authLink.innerHTML = '<a href="#" onclick="logout()">Logout</a>';
             } else {
-                // If no user is logged in
-                console.log("No user is logged in"); // Debug log
+                // No user is logged in, show login link
                 authLink.innerHTML = '<a href="login.html">Login</a>';
             }
         });
